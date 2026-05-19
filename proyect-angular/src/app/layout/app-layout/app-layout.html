@@ -1,0 +1,39 @@
+<div class="admin-shell" [class.menu-open]="menuOpen">
+  @if (menuOpen) {
+    <button type="button" class="menu-backdrop" aria-label="Cerrar menu" (click)="closeMenu()"></button>
+  }
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span>AP</span>
+      <strong>AdoptaPet Admin</strong>
+    </div>
+    <div class="user-panel">
+      <div class="avatar">{{ (auth.getUsername() || 'U').charAt(0).toUpperCase() }}</div>
+      <div>
+        <strong>{{ auth.getUsername() }}</strong>
+        <small>{{ auth.getRol() === 'ROLE_ADMIN' ? 'Administrador' : 'Trabajador' }}</small>
+      </div>
+    </div>
+    <nav (click)="closeMenu()">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/mascotas" routerLinkActive="active">Mascotas</a>
+      <a routerLink="/solicitudes" routerLinkActive="active">Solicitudes</a>
+      @if (auth.isAdmin()) {
+        <a routerLink="/categorias" routerLinkActive="active">Categor&iacute;as de adopci&oacute;n</a>
+        <a routerLink="/usuarios/adoptantes" routerLinkActive="active">Adoptantes</a>
+        <a routerLink="/usuarios/trabajadores" routerLinkActive="active">Trabajadores</a>
+      }
+      <a routerLink="/perfil" routerLinkActive="active">Mi Perfil</a>
+    </nav>
+    <button type="button" class="logout" (click)="logout()">Cerrar sesion</button>
+  </aside>
+  <section class="content">
+    <header class="topbar">
+      <button type="button" class="menu-btn" (click)="menuOpen = !menuOpen">&#9776;</button>
+      <span>Portal operativo</span>
+    </header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </section>
+</div>

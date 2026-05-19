@@ -1,0 +1,251 @@
+@baseUrl = http://localhost:8080
+@adminToken =
+@trabajadorToken =
+@adoptanteToken =
+
+### AUTH - login admin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123"
+}
+
+### AUTH - login trabajador
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "pepe",
+  "password": "123"
+}
+
+### AUTH - login adoptante
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "rodrigo",
+  "password": "123"
+}
+
+### AUTH - registro adoptante
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "username": "nuevo",
+  "password": "123",
+  "nom_adoptante": "Nuevo",
+  "ape_adoptante": "Adoptante",
+  "fec_nacimiento": "1999-01-10",
+  "dni": "77777777",
+  "email": "nuevo@mail.com",
+  "telefono": "999777111",
+  "direccion": "Av. Principal 100"
+}
+
+### MASCOTAS - publico
+GET {{baseUrl}}/api/mascotas
+
+### MASCOTAS - filtro especie
+GET {{baseUrl}}/api/mascotas?especie=Perro
+
+### MASCOTAS - filtro categoria
+GET {{baseUrl}}/api/mascotas?idCategoria=1
+
+### MASCOTAS - busqueda nombre
+GET {{baseUrl}}/api/mascotas?nombre=firu
+
+### MASCOTAS - detalle
+GET {{baseUrl}}/api/mascotas/1
+
+### MASCOTAS - crear con imagen
+POST {{baseUrl}}/api/mascotas
+Authorization: Bearer {{adminToken}}
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="nombre"
+
+Nala
+--Boundary
+Content-Disposition: form-data; name="especie"
+
+Perro
+--Boundary
+Content-Disposition: form-data; name="raza"
+
+Mestiza
+--Boundary
+Content-Disposition: form-data; name="edad_anios"
+
+1
+--Boundary
+Content-Disposition: form-data; name="edad_meses"
+
+6
+--Boundary
+Content-Disposition: form-data; name="est_salud"
+
+SIN NOVEDADES
+--Boundary
+Content-Disposition: form-data; name="est_adopcion"
+
+DISPONIBLE
+--Boundary
+Content-Disposition: form-data; name="idCategoria"
+
+1
+--Boundary--
+
+### MASCOTAS - actualizar
+PUT {{baseUrl}}/api/mascotas/1
+Authorization: Bearer {{adminToken}}
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="nombre"
+
+Firulais Actualizado
+--Boundary--
+
+### MASCOTAS - baja logica
+DELETE {{baseUrl}}/api/mascotas/1
+Authorization: Bearer {{adminToken}}
+
+### CATEGORIAS - listar
+GET {{baseUrl}}/api/categorias
+
+### CATEGORIAS - crear
+POST {{baseUrl}}/api/categorias
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Hamsters",
+  "descripcion": "Pequenos roedores en adopcion"
+}
+
+### CATEGORIAS - editar
+PUT {{baseUrl}}/api/categorias/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Perros",
+  "descripcion": "Mascotas caninas"
+}
+
+### CATEGORIAS - eliminar
+DELETE {{baseUrl}}/api/categorias/6
+Authorization: Bearer {{adminToken}}
+
+### SOLICITUDES - crear
+POST {{baseUrl}}/api/solicitudes
+Authorization: Bearer {{adoptanteToken}}
+Content-Type: application/json
+
+{
+  "id_adoptante": 3,
+  "id_mascota": 1,
+  "comentario": "Tengo espacio y experiencia cuidando mascotas."
+}
+
+### SOLICITUDES - listar
+GET {{baseUrl}}/api/solicitudes
+Authorization: Bearer {{adminToken}}
+
+### SOLICITUDES - detalle
+GET {{baseUrl}}/api/solicitudes/1
+Authorization: Bearer {{adminToken}}
+
+### SOLICITUDES - cambiar estado
+PUT {{baseUrl}}/api/solicitudes/1/estado
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "estado": "EN_PROCESO"
+}
+
+### SOLICITUDES - descargar acta
+GET {{baseUrl}}/api/solicitudes/1/acta
+Authorization: Bearer {{adminToken}}
+
+### SOLICITUDES - subir acta firmada
+POST {{baseUrl}}/api/solicitudes/1/acta-firmada
+Authorization: Bearer {{adoptanteToken}}
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="archivo"; filename="acta_firmada.pdf"
+Content-Type: application/pdf
+
+< ./acta_firmada.pdf
+--Boundary--
+
+### SOLICITUDES - verificar acta
+PUT {{baseUrl}}/api/solicitudes/1/verificar-acta
+Authorization: Bearer {{adminToken}}
+
+### USUARIOS - listar
+GET {{baseUrl}}/api/usuarios
+Authorization: Bearer {{adminToken}}
+
+### USUARIOS - adoptantes
+GET {{baseUrl}}/api/usuarios/adoptantes
+Authorization: Bearer {{trabajadorToken}}
+
+### USUARIOS - crear trabajador
+POST {{baseUrl}}/api/usuarios/trabajador
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "username": "trabajador2",
+  "password": "123",
+  "nomTrabajador": "Maria",
+  "apeTrabajador": "Lopez",
+  "dni": "88888888",
+  "fecNacimiento": "1994-02-20",
+  "email": "maria@pet.com",
+  "telefono": "999222333"
+}
+
+### USUARIOS - cambiar estado
+PUT {{baseUrl}}/api/usuarios/3/estado
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "activo": true
+}
+
+### USUARIOS - perfil
+GET {{baseUrl}}/api/usuarios/perfil
+Authorization: Bearer {{adoptanteToken}}
+
+### USUARIOS - actualizar perfil
+PUT {{baseUrl}}/api/usuarios/perfil
+Authorization: Bearer {{adoptanteToken}}
+Content-Type: application/json
+
+{
+  "email": "rodrigo_actualizado@mail.com",
+  "telefono": "987654321",
+  "direccion": "Av. Lima actualizada 123"
+}
+
+### DASHBOARD - resumen
+GET {{baseUrl}}/api/dashboard/resumen
+Authorization: Bearer {{adminToken}}
+
+### DASHBOARD - solicitudes por mes
+GET {{baseUrl}}/api/dashboard/solicitudes-por-mes
+Authorization: Bearer {{adminToken}}
+
+### DASHBOARD - mascotas por categoria
+GET {{baseUrl}}/api/dashboard/mascotas-por-categoria
+Authorization: Bearer {{adminToken}}

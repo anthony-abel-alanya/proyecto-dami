@@ -1,0 +1,45 @@
+.access-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f4f7fb;
+  padding: 24px;
+}
+
+.access-card {
+  width: min(520px, 100%);
+  background: #fff;
+  border: 1px solid #e1e7ef;
+  border-radius: 8px;
+  box-shadow: 0 20px 45px rgba(20, 47, 86, .12);
+  padding: 36px;
+}
+
+.brand-mark {
+  width: 62px;
+  height: 62px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #1a56a0;
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+h1 {
+  color: #143a68;
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+p {
+  color: #607084;
+  margin-bottom: 24px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}

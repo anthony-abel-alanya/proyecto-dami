@@ -1,0 +1,29 @@
+<main class="login-page">
+  <section class="login-card">
+    <div class="brand-mark">AP</div>
+    <h1>AdoptaPet Admin</h1>
+    <p>Portal para administradores y trabajadores</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label>
+        Usuario
+        <input class="form-control" formControlName="username" autocomplete="username" [ngClass]="{'is-invalid': form.controls.username.touched && form.controls.username.invalid}">
+      </label>
+      <label>
+        Contrasena
+        <input class="form-control" type="password" formControlName="password" autocomplete="current-password" [ngClass]="{'is-invalid': form.controls.password.touched && form.controls.password.invalid}">
+      </label>
+
+      @if (error) {
+        <div class="alert alert-danger py-2">{{ error }}</div>
+      }
+
+      <button class="btn btn-primary w-100" type="submit" [disabled]="loading">
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+        }
+        Iniciar sesion
+      </button>
+    </form>
+  </section>
+</main>

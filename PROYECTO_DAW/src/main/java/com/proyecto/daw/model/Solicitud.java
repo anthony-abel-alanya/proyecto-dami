@@ -58,16 +58,3 @@ public class Solicitud {
 	private LocalDateTime fechaActualizacion;
 
 }
-
-//CREATE TABLE solicitud (
-//	    id_solicitud INT AUTO_INCREMENT PRIMARY KEY,
-//	    fecha_registro DATE DEFAULT (CURRENT_DATE),
-//	    id_adoptante INT NOT NULL, 
-//	    id_mascota INT NOT NULL,
-//	    comentario TEXT,
-//	    ruta_pdf_acta VARCHAR(255), 
-//	    estado_solicitud VARCHAR(20) DEFAULT 'PENDIENTE',
-//	    CONSTRAINT chk_solicitud_estado CHECK (estado_solicitud IN ('PENDIENTE', 'APROBADA', 'RECHAZADA')),
-//	    FOREIGN KEY (id_adoptante) REFERENCES adoptante(id_usuario),
-//	    FOREIGN KEY (id_mascota) REFERENCES mascota(id_mascota)
-//	);

@@ -1,0 +1,133 @@
+<div class="dashboard-head">
+  <div>
+    <p class="eyebrow">Panel operativo</p>
+    <h1>Hola, {{ auth.getUsername() }}</h1>
+    <span>{{ today | date:'fullDate' }}</span>
+  </div>
+  <a class="btn btn-primary" routerLink="/mascotas/nuevo">Registrar mascota</a>
+</div>
+
+<section class="metric-grid">
+  <article class="metric-card available">
+    <span class="metric-icon">M</span>
+    <div>
+      <small>Mascotas disponibles</small>
+      <strong>{{ resumen?.mascotasDisponibles ?? 0 }}</strong>
+      <p>Listas para recibir solicitudes.</p>
+    </div>
+  </article>
+  <article class="metric-card pending">
+    <span class="metric-icon">S</span>
+    <div>
+      <small>Solicitudes pendientes</small>
+      <strong>{{ resumen?.solicitudesPendientes ?? 0 }}</strong>
+      <p>{{ pendientesTexto() }}</p>
+    </div>
+  </article>
+  <article class="metric-card adopters">
+    <span class="metric-icon">A</span>
+    <div>
+      <small>Adoptantes registrados</small>
+      <strong>{{ resumen?.adoptantesRegistrados ?? 0 }}</strong>
+      <p>Personas en la base del refugio.</p>
+    </div>
+  </article>
+  <article class="metric-card closed">
+    <span class="metric-icon">OK</span>
+    <div>
+      <small>Adoptadas este mes</small>
+      <strong>{{ resumen?.mascotasAdoptadasEsteMes ?? 0 }}</strong>
+      <p>Casos cerrados correctamente.</p>
+    </div>
+  </article>
+</section>
+
+<section class="dashboard-grid">
+  <article class="panel chart-panel wide">
+    <div class="section-head">
+      <div>
+        <h2>Solicitudes por mes</h2>
+        <p>Movimiento de los ultimos seis meses.</p>
+      </div>
+      <strong>{{ totalSolicitudesMeses() }}</strong>
+    </div>
+    <div class="month-chart">
+      @for (item of meses; track item.mes + item.anio) {
+        <div class="month-column">
+          <div class="column-track"><i [style.height.%]="barWidth(item.cantidad)"></i></div>
+          <b>{{ item.cantidad }}</b>
+          <span>{{ item.mes.slice(0,3) }}</span>
+        </div>
+      } @empty {
+        <p class="text-muted mb-0">No hay datos mensuales todavia.</p>
+      }
+    </div>
+  </article>
+
+  <article class="panel ops-panel">
+    <div class="section-head">
+      <div>
+        <h2>Estado operativo</h2>
+        <p>Lectura rapida del dia.</p>
+      </div>
+    </div>
+    <div class="ops-list">
+      <div>
+        <span>Pendientes de revisión</span>
+        <strong>{{ resumen?.solicitudesPendientes ?? 0 }}</strong>
+      </div>
+      <div>
+        <span>Ultimas solicitudes</span>
+        <strong>{{ ultimas.length }}</strong>
+      </div>
+      <div>
+        <span>Tipos de mascota</span>
+        <strong>{{ categorias.length }}</strong>
+      </div>
+    </div>
+    <a class="btn btn-outline-primary w-100 mt-3" routerLink="/solicitudes">Revisar solicitudes</a>
+  </article>
+
+  <article class="panel">
+    <div class="section-head">
+      <div>
+        <h2>Mascotas por tipo</h2>
+        <p>Distribucion del catalogo.</p>
+      </div>
+    </div>
+    <div class="type-list">
+      @for (item of categorias; track item.categoria) {
+        <div class="type-row">
+          <span>{{ item.categoria }}</span>
+          <div><i [style.width.%]="tipoWidth(item.cantidad)"></i></div>
+          <strong>{{ item.cantidad }}</strong>
+        </div>
+      } @empty {
+        <p class="text-muted mb-0">Sin mascotas registradas todavia.</p>
+      }
+    </div>
+  </article>
+
+  <article class="panel recent-panel">
+    <div class="section-head">
+      <div>
+        <h2>Ultimas solicitudes</h2>
+        <p>Seguimiento directo de casos.</p>
+      </div>
+      <a class="btn btn-outline-primary btn-sm" routerLink="/solicitudes">Revisar</a>
+    </div>
+    <div class="recent-list">
+      @for (s of ultimas; track s.idSolicitud) {
+        <a class="request-item" [routerLink]="['/solicitudes', s.idSolicitud]">
+          <div>
+            <strong>#{{ s.idSolicitud }} · {{ s.mascotaNombre || 'Mascota' }}</strong>
+            <span>{{ s.adoptanteNombre || 'Adoptante' }} · {{ s.fechaRegistro | date:'shortDate' }}</span>
+          </div>
+          <span class="badge" [class]="badgeClass(s.estadoSolicitud)">{{ s.estadoSolicitud | estadoLabel }}</span>
+        </a>
+      } @empty {
+        <p class="text-muted mb-0">No hay solicitudes recientes.</p>
+      }
+    </div>
+  </article>
+</section>

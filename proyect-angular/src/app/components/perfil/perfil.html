@@ -1,0 +1,51 @@
+<div class="page-head">
+  <div>
+    <h1>Mi Perfil</h1>
+    <p>Informacion de la cuenta operativa.</p>
+  </div>
+</div>
+
+@if (perfil) {
+  <section class="profile-grid">
+    <aside class="profile-card">
+      <div class="avatar-lg">{{ iniciales() }}</div>
+      <h2>{{ nombreCompleto() }}</h2>
+      <p>{{ rolLabel(perfil.rol) }}</p>
+      <div class="profile-meta">
+        <div><span>Usuario</span><strong>{{ perfil.username }}</strong></div>
+        <div><span>DNI</span><strong>{{ perfil.dni || '-' }}</strong></div>
+        <div><span>Correo</span><strong>{{ perfil.email || 'Sin correo' }}</strong></div>
+        <div><span>Telefono</span><strong>{{ perfil.telefono || 'Sin telefono' }}</strong></div>
+        <div><span>Estado</span><strong>Activo</strong></div>
+      </div>
+    </aside>
+
+    <section class="panel profile-form">
+      <div class="section-head">
+        <div>
+          <h2>Datos personales</h2>
+          <p>Actualiza la informacion visible para la gestion interna.</p>
+        </div>
+      </div>
+
+      @if (puedeEditarDatos()) {
+        <div class="form-grid compact">
+          <label>Nombres<input class="form-control" [(ngModel)]="perfil.nombres"></label>
+          <label>Apellidos<input class="form-control" [(ngModel)]="perfil.apellidos"></label>
+          <label>Email<input class="form-control" [(ngModel)]="perfil.email"></label>
+          <label>Tel&eacute;fono<input class="form-control" [(ngModel)]="perfil.telefono"></label>
+          @if (perfil.rol === 'ROLE_ADOPTANTE') {
+            <label class="span-2">Direcci&oacute;n<input class="form-control" [(ngModel)]="perfil.direccion"></label>
+          }
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" (click)="save()">Guardar cambios</button>
+        </div>
+      } @else {
+        <div class="alert alert-info mb-0">Esta cuenta no tiene una ficha personal asociada.</div>
+      }
+    </section>
+  </section>
+} @else {
+  <section class="panel"><p class="text-muted mb-0">Cargando perfil...</p></section>
+}

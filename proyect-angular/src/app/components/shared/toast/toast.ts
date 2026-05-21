@@ -6,15 +6,8 @@ import { ToastService } from '../../../services/toast.service';
   selector: 'app-toast',
   standalone: true,
   imports: [AsyncPipe, NgClass],
-  template: `
-    <div class="toast-stack">
-      @for (toast of toastService.messages$ | async; track toast.id) {
-        <button class="toast-item" [ngClass]="toast.type" type="button" (click)="toastService.remove(toast.id)">
-          {{ toast.message }}
-        </button>
-      }
-    </div>
-  `,
+  templateUrl: './toast.html',
+  styleUrls: ['./toast.css'],
 })
 export class ToastComponent {
   readonly toastService = inject(ToastService);

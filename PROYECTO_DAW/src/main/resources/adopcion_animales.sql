@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS adopcion_mascotas;
-USE adopcion_mascotas;
+CREATE DATABASE IF NOT EXISTS adopcion_animales;
+USE adopcion_animales;
 
 DROP TABLE IF EXISTS reporte_perdida;
 

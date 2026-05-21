@@ -6,13 +6,8 @@ import { LoadingService } from '../../../services/loading.service';
   selector: 'app-loading',
   standalone: true,
   imports: [AsyncPipe],
-  template: `
-    @if (loading.loading$ | async) {
-      <div class="loading-overlay">
-        <div class="spinner-border text-primary" role="status"></div>
-      </div>
-    }
-  `,
+  templateUrl: './loading.html',
+  styleUrls: ['./loading.css'],
 })
 export class LoadingComponent {
   readonly loading = inject(LoadingService);

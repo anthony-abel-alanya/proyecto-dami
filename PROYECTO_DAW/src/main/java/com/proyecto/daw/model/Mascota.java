@@ -55,22 +55,3 @@ public class Mascota {
 	private LocalDateTime fechaActualizacion;
 }
 
-//CREATE TABLE mascota (
-//	    id_mascota INT AUTO_INCREMENT PRIMARY KEY,
-//	    nombre VARCHAR(50) NOT NULL,
-//	    especie VARCHAR(20) NOT NULL, 
-//	    raza VARCHAR(50) NOT NULL,
-//	    -- Dividimos la edad para mayor precisión
-//	    edad_anios INT DEFAULT 0,
-//	    edad_meses INT DEFAULT 0,
-//	    estado_salud VARCHAR(50) NOT NULL,
-//	    estado_adopcion VARCHAR(20) DEFAULT 'DISPONIBLE',
-//	    ruta_imagen VARCHAR(255), 
-//	    
-//	    -- Validamos que no pongan edades negativas
-//	    CONSTRAINT chk_edad_anios CHECK (edad_anios >= 0),
-//	    CONSTRAINT chk_edad_meses CHECK (edad_meses >= 0 AND edad_meses < 12),
-//	    
-//	    CONSTRAINT chk_mascota_salud CHECK (estado_salud IN ('SIN NOVEDADES', 'EN TRATAMIENTO', 'CRITICO')),
-//	    CONSTRAINT chk_mascota_adopcion CHECK (estado_adopcion IN ('DISPONIBLE', 'ADOPTADO', 'RESERVADO'))
-//	);

@@ -10,59 +10,8 @@ import { EstadoBadgePipe } from '../../../pipes/estado-badge.pipe';
   selector: 'app-detalle-solicitud',
   standalone: true,
   imports: [DatePipe, RouterLink, EstadoBadgePipe],
-  template: `
-    <a class="btn btn-outline-secondary mb-3" routerLink="/solicitudes">Volver a la lista</a>
-    @if (solicitud) {
-      <div class="page-head"><div><h1>Solicitud #{{ solicitud.idSolicitud }}</h1><p>{{ solicitud.fechaRegistro | date:'fullDate' }}</p></div></div>
-      <div class="detail-grid">
-        <section class="panel">
-          <h2>Datos</h2>
-          <dl>
-            <dt>Adoptante</dt><dd>{{ solicitud.adoptanteNombre }}</dd>
-            <dt>DNI</dt><dd>{{ solicitud.adoptanteDni }}</dd>
-            <dt>Mascota</dt><dd>{{ solicitud.mascotaNombre }}</dd>
-            <dt>Comentario</dt><dd>{{ solicitud.comentario || '-' }}</dd>
-          </dl>
-        </section>
-        <section class="panel">
-          <h2>Estado y acciones</h2>
-          <p><span class="badge badge-large" [class]="badgeClass(solicitud.estadoSolicitud)">{{ solicitud.estadoSolicitud | estadoLabel }}</span></p>
-          <ol class="timeline">
-            <li class="done">Solicitud recibida</li>
-            <li [class.done]="solicitud.estadoSolicitud !== 'PENDIENTE'">En proceso</li>
-            <li [class.done]="actaPaso('GENERADA')">Acta generada</li>
-            <li [class.done]="actaPaso('FIRMADA')">Acta firmada</li>
-            <li [class.done]="solicitud.estadoSolicitud === 'APROBADA' || solicitud.estadoSolicitud === 'RECHAZADA'">Cierre</li>
-          </ol>
-          <div class="action-stack">
-            @if (solicitud.estadoSolicitud === 'PENDIENTE') {
-              <button class="btn btn-primary" (click)="cambiarEstado('EN_PROCESO')">Iniciar Proceso</button>
-            }
-            @if (solicitud.estadoSolicitud === 'EN_PROCESO' && solicitud.estadoActa === 'SIN_ACTA') {
-              <button class="btn btn-primary" (click)="descargarActa()">Generar Acta PDF</button>
-            }
-            @if (solicitud.estadoActa === 'GENERADA') {
-              <button class="btn btn-outline-primary" (click)="descargarActa()">Descargar Acta</button>
-              <p class="text-muted">Esperando acta firmada del adoptante.</p>
-            }
-            @if (solicitud.estadoActa === 'FIRMADA') {
-              <a class="btn btn-outline-primary" [href]="service.fileUrl(solicitud.rutaPdfFirmado)" target="_blank">Descargar Acta Firmada</a>
-              <button class="btn btn-success" (click)="verificar()">Verificar y Aprobar</button>
-            }
-            @if (solicitud.estadoSolicitud !== 'APROBADA' && solicitud.estadoSolicitud !== 'RECHAZADA') {
-              <button class="btn btn-outline-danger" (click)="rechazar()">Rechazar</button>
-            }
-            @if (solicitud.estadoSolicitud === 'APROBADA') { <div class="alert alert-success">Adopcion aprobada</div> }
-            @if (solicitud.estadoSolicitud === 'RECHAZADA') { <div class="alert alert-danger">Solicitud rechazada</div> }
-          </div>
-        </section>
-      </div>
-    } @else if (error) {
-      <section class="panel"><p class="text-danger mb-0">{{ error }}</p></section>
-    } @else {
-      <section class="panel"><p class="text-muted mb-0">Cargando solicitud...</p></section>
-    }
-  `,
+  templateUrl: './detalle-solicitud.html',
+  styleUrls: ['./detalle-solicitud.css'],
 })
 export class DetalleSolicitudComponent implements OnInit {
   readonly service = inject(SolicitudService);

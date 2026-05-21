@@ -1,0 +1,26 @@
+<div class="page-head"><div><h1>Trabajadores</h1><p>Gestión de cuentas internas.</p></div><button class="btn btn-primary" (click)="showForm = !showForm">Nuevo Trabajador</button></div>
+@if (showForm) {
+  <section class="panel form-grid">
+    <input class="form-control" placeholder="Usuario" [(ngModel)]="form.username">
+    <input class="form-control" placeholder="Password" type="password" [(ngModel)]="form.password">
+    <input class="form-control" placeholder="Nombre" [(ngModel)]="form.nomTrabajador">
+    <input class="form-control" placeholder="Apellido" [(ngModel)]="form.apeTrabajador">
+    <input class="form-control" placeholder="DNI" [(ngModel)]="form.dni">
+    <input class="form-control" type="date" [(ngModel)]="form.fecNacimiento">
+    <input class="form-control" placeholder="Email" [(ngModel)]="form.email">
+    <input class="form-control" placeholder="Telefono" [(ngModel)]="form.telefono">
+    <button class="btn btn-primary" (click)="create()">Guardar</button>
+  </section>
+}
+<section class="panel table-responsive">
+  <table class="table align-middle">
+    <thead><tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+      @for (u of trabajadores(); track u.id) {
+        <tr><td>{{ u.nombreCompleto }}</td><td>{{ u.username }}</td><td>{{ rolLabel(u.rol) }}</td><td><span class="badge" [class]="u.activo ? 'bg-success' : 'bg-secondary'">{{ u.activo ? 'Activo' : 'Inactivo' }}</span></td><td class="text-end"><button class="btn btn-sm" [class]="u.activo ? 'btn-outline-danger' : 'btn-outline-success'" [disabled]="u.id === currentUserId()" (click)="toggle(u)">{{ u.activo ? 'Desactivar' : 'Activar' }}</button></td></tr>
+      } @empty {
+        <tr><td colspan="5" class="text-center text-muted py-4">No hay trabajadores registrados</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

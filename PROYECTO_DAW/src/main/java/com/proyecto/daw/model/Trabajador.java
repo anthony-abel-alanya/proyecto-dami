@@ -32,13 +32,3 @@ public class Trabajador extends Usuario{
 	private LocalDateTime fechaCreacionTrabajador;
 }
 
-//CREATE TABLE trabajador (
-//	    id_usuario INT PRIMARY KEY,
-//	    nom_trabajador VARCHAR(100) NOT NULL,
-//	    ape_trabajador VARCHAR(100) NOT NULL,
-//	    dni CHAR(8) UNIQUE NOT NULL,
-//	    fec_nacimiento DATE NOT NULL,
-//	    email VARCHAR(100) UNIQUE NOT NULL,
-//	    telefono CHAR(9) NOT NULL,
-//	    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
-//	);

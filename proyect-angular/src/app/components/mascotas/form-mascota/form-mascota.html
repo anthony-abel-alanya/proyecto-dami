@@ -1,0 +1,20 @@
+<div class="page-head">
+  <div><h1>{{ id ? 'Editar Mascota' : 'Nueva Mascota' }}</h1><p>Completa los datos de adopci&oacute;n.</p></div>
+  <a class="btn btn-outline-secondary" routerLink="/mascotas">Cancelar</a>
+</div>
+<form class="panel form-grid" [formGroup]="form" (ngSubmit)="guardar()">
+  <label>Nombre<input class="form-control" formControlName="nombre"></label>
+  <label>Tipo de mascota<select class="form-select" formControlName="especie"><option>Perro</option><option>Gato</option><option>Conejo</option><option>Ave</option><option>Otro</option></select></label>
+  <label>Raza<input class="form-control" formControlName="raza"></label>
+  <label>A&ntilde;os<input class="form-control" type="number" formControlName="edadAnios"></label>
+  <label>Meses adicionales<input class="form-control" type="number" formControlName="edadMeses"></label>
+  <label>Estado salud<select class="form-select" formControlName="estadoSalud"><option>SIN NOVEDADES</option><option>EN TRATAMIENTO</option><option>CRITICO</option></select></label>
+  <label>Estado adopci&oacute;n<select class="form-select" formControlName="estadoAdopcion"><option>DISPONIBLE</option><option>RESERVADO</option><option>ADOPTADO</option><option>INACTIVO</option></select></label>
+  <label>Categor&iacute;a de adopci&oacute;n<select class="form-select" formControlName="idCategoria"><option value="">Sin categor&iacute;a</option>@for (c of categorias; track c.id) {<option [value]="c.id">{{ c.nombre }}</option>}</select></label>
+  <label class="span-2">Descripci&oacute;n<textarea class="form-control" formControlName="descripcion" rows="3"></textarea></label>
+  <label class="span-2">Imagen<input class="form-control" type="file" accept="image/*" (change)="onFile($event)"></label>
+  @if (preview) { <img class="preview" [src]="preview" alt=""> }
+  <div class="actions span-2">
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </div>
+</form>

@@ -34,14 +34,4 @@ public class Adoptante extends Usuario{
 	private LocalDateTime fechaCreacionAdoptante;
 }
 
-//CREATE TABLE adoptante (
-//	    id_usuario INT PRIMARY KEY,
-//	    nom_adoptante VARCHAR(100) NOT NULL,
-//	    ape_adoptante VARCHAR(100) NOT NULL,
-//	    fec_nacimiento DATE NOT NULL,
-//	    dni CHAR(8) UNIQUE NOT NULL,
-//	    email VARCHAR(100) UNIQUE NOT NULL,
-//	    telefono CHAR(9) NOT NULL,
-//	    direccion VARCHAR(150),
-//	    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
-//	);
+

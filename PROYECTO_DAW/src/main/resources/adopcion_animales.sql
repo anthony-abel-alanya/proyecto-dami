@@ -83,17 +83,12 @@ CREATE TABLE IF NOT EXISTS solicitud (
     FOREIGN KEY (id_mascota) REFERENCES mascota(id_mascota)
 );
 
-INSERT INTO categoria (nombre, descripcion)
-SELECT 'Perros', 'Mascotas caninas de diversas razas' WHERE NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Perros');
-INSERT INTO categoria (nombre, descripcion)
-SELECT 'Gatos', 'Mascotas felinas domesticadas' WHERE NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Gatos');
-INSERT INTO categoria (nombre, descripcion)
-SELECT 'Conejos', 'Conejos y roedores pequenos' WHERE NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Conejos');
-INSERT INTO categoria (nombre, descripcion)
-SELECT 'Aves', 'Pajaros y loros domesticos' WHERE NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Aves');
-INSERT INTO categoria (nombre, descripcion)
-SELECT 'Otros', 'Otras mascotas variadas' WHERE NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Otros');
-
+INSERT INTO categoria(nombre, descripcion) VALUES
+('Adopcion Urgente', 'Mascotas que necesitan hogar rapidamente'),
+('Cuidados Especiales', 'Mascotas con tratamiento o discapacidad'),
+('Primera Adopcion', 'Ideales para adoptantes nuevos'),
+('Adultos Responsables', 'Mascotas tranquilas para hogares calmados'),
+('Alta Energia', 'Mascotas activas y juguetonas');
 
 /* CONTRASENIA 123 EN TODOS LOS USUARIOS */
 INSERT INTO usuario (username, password, rol, activo)
